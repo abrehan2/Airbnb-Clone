@@ -1,5 +1,6 @@
 "use client";
 
+// PARTIALS -
 interface MenuItemProps {
   onClick: () => void;
   label: string;

@@ -2,6 +2,6 @@
 
 const Logo = () => {
   return <div className="font-medium text-2xl">Travel App</div>;
-}
+};
 
-export default Logo
+export default Logo;
