@@ -13,6 +13,6 @@ const Avatar = () => {
       src={"/images/placeholder.jpg"}
     />
   );
-};
+}
 
 export default Avatar;
