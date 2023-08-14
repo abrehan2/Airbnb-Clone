@@ -2,6 +2,7 @@
 
 // IMPORTS -
 import { useCallback, useState, useEffect } from "react";
+import { IoMdClose } from "react-icons/io";
 
 // PARTIALS -
 interface ModalProps {
@@ -97,7 +98,15 @@ w-full bg-white outline-none focus:outline-none
                 <button
                   className="p-1 border-0 hover:opacity-70
     transition absolute left-9"
-                ></button>
+                  onClick={handleClose}
+                >
+                  <IoMdClose size={18} />
+                </button>
+                <div className="text-lg font-semibold">
+
+                  {title}
+
+                </div>
               </div>
             </div>
           </div>
