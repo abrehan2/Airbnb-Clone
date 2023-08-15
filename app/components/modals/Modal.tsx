@@ -3,6 +3,7 @@
 // IMPORTS -
 import { useCallback, useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
+import Button from "../Button";
 
 // PARTIALS -
 interface ModalProps {
@@ -102,10 +103,18 @@ w-full bg-white outline-none focus:outline-none
                 >
                   <IoMdClose size={18} />
                 </button>
-                <div className="text-lg font-semibold">
+                <div className="text-lg font-semibold">{title}</div>
+              </div>
 
-                  {title}
+              <div className="relative p-6 flex-auto">{body}</div>
 
+              <div className="flex flex-col gap-2 p-6">
+                <div className="flex flex-row items-center gap-4 w-full">
+                  <Button
+                    label={actionLabel}
+                    disabled={disabled}
+                    onClick={handleSubmit}
+                  />
                 </div>
               </div>
             </div>
