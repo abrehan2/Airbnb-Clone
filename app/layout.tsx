@@ -5,6 +5,7 @@ import Navbar from "./components/navbar/Navbar";
 import "./globals.css";
 import ClientOnly from "./components/ClientOnly";
 import Modal from "./components/modals/Modal";
+import RegisterModal from "./components/modals/RegisterModal";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -25,7 +26,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          <Modal isOpen={true} title="Hello world" actionLabel="Submit"/>
+          {/* <Modal isOpen={true} title="Hello world" actionLabel="Submit"/> */}
+          <RegisterModal />
           <Navbar />
         </ClientOnly>
         {children}
