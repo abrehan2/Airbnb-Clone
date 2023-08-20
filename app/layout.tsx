@@ -6,6 +6,7 @@ import "./globals.css";
 import ClientOnly from "./components/ClientOnly";
 import Modal from "./components/modals/Modal";
 import RegisterModal from "./components/modals/RegisterModal";
+import ToasterProvider from "./providers/ToasterProvider";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -13,7 +14,7 @@ const font = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: "Travel App",
+  title: "airbnb",
   description: "By Abdul Rehan Najam",
 };
 
@@ -26,7 +27,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <ClientOnly>
-          {/* <Modal isOpen={true} title="Hello world" actionLabel="Submit"/> */}
+        <ToasterProvider />
           <RegisterModal />
           <Navbar />
         </ClientOnly>

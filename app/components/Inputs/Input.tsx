@@ -67,7 +67,8 @@ ${errors[id] ? "focus:border-rose-500" : "focus:border-black"}
 absolute
 text-md
 duration-150
-transform-translate-y-3
+transform
+-translate-y-3
 top-5
 z-10
 origin-[0]

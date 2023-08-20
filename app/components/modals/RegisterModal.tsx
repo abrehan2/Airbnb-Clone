@@ -8,10 +8,11 @@ import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "../hooks/useRegisterModal";
+import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
 import Heading from "../Heading";
 import Input from "../Inputs/Input";
+import { toast } from "react-hot-toast";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
@@ -28,52 +29,68 @@ const RegisterModal = () => {
     },
   });
 
-const onSubmit : SubmitHandler<FieldValues> = (data) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    setIsLoading(true);
 
-setIsLoading(true);
+    axios
+      .post(`/api/register`, data)
+      .then(() => {
+        registerModal.onClose();
+      })
+      .catch((error) => {
+        toast.error(`Something went wrong`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
-axios.post(`/api/register`, data).then(() => {
+  const bodyContent = (
+    <div className="flex flex-col gap-4">
+      <Heading title="Welcome to airbnb" subtitle="Create an account" />
+      <Input
+        id="email"
+        label="Email"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
 
-  registerModal.onClose();
+      <Input
+        id="name"
+        label="Name"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
 
-}).catch((error) => {
+      <Input
+        id="password"
+        label="Password"
+        type="password"
+        disabled={isLoading}
+        register={register}
+        errors={errors}
+        required
+      />
+    </div>
+  );
 
-console.error(error);
-
-}).finally(() => {
-
-  setIsLoading(false);
-
-});
-  }
-
-const bodyContent = (
-  <div className="flex flex-col gap-4">
-<Heading title="Welcome to travel app"
-subtitle="Create an account"/>
-<Input 
-id="email"
-label="Email"
-disabled={isLoading}
-register={register}
-errors={errors}
-required
-/>
-  </div>
-)
-
-
-  return <>
-  <Modal disabled={isLoading}
-  isOpen={registerModal.isOpen}
-  title="Register"
-  actionLabel="Continue"
-  onClose={registerModal.onClose}
-  onSubmit={handleSubmit(onSubmit)}
-  body={bodyContent}
-  
-  />
-  </>;
+  return (
+    <>
+      <Modal
+        disabled={isLoading}
+        isOpen={registerModal.isOpen}
+        title="Register"
+        actionLabel="Continue"
+        onClose={registerModal.onClose}
+        onSubmit={handleSubmit(onSubmit)}
+        body={bodyContent}
+      />
+    </>
+  );
 };
 
 export default RegisterModal;
