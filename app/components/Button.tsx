@@ -48,7 +48,7 @@ ${small ? `border-[1px]` : `border-2`}
           <Icon
             size={24}
             className="
-    absolute left-4 top-3"
+    absolute left-10 top-auto"
           />
         )}
         {label}
