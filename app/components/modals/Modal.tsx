@@ -125,9 +125,7 @@ w-full bg-white outline-none focus:outline-none
                     onClick={handleSubmit}
                   />
                 </div>
-                {
-                  footer
-                }
+                {footer}
               </div>
             </div>
           </div>
