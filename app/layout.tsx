@@ -9,6 +9,7 @@ import RegisterModal from "./components/modals/RegisterModal";
 import ToasterProvider from "./providers/ToasterProvider";
 import LoginModal from "./components/modals/LoginModel";
 import getCurrentUser from "./actions/getCurrentUser";
+import RentModel from "./components/modals/RentModel";
 
 const font = Roboto({
   subsets: ["latin"],
@@ -27,7 +28,6 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
 
-
   return (
     <html lang="en">
       <body className={font.className}>
@@ -35,7 +35,8 @@ export default async function RootLayout({
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
-          <Navbar currentUser={currentUser}/>
+          <RentModel />
+          <Navbar currentUser={currentUser} />
         </ClientOnly>
         {children}
       </body>

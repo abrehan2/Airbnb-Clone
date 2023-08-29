@@ -6,7 +6,7 @@
 import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import Modal from "./Modal";
@@ -15,9 +15,11 @@ import Input from "../Inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import { signIn } from "next-auth/react";
+import useLoginModal from "@/app/hooks/useLoginModel";
 
 const RegisterModal = () => {
   const registerModal = useRegisterModal();
+  const loginModel = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
   const {
     register,
@@ -46,6 +48,11 @@ const RegisterModal = () => {
         setIsLoading(false);
       });
   };
+
+  const toggle = useCallback(() => {
+    loginModel.onOpen();
+    registerModal.onClose();
+  }, [loginModel, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -87,14 +94,14 @@ const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        onClick={() => signIn("google")}
       />
 
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => signIn('github')}
+        onClick={() => signIn("github")}
       />
       <div
         className="text-neutral-500
@@ -104,13 +111,18 @@ const RegisterModal = () => {
       
       "
       >
-        <div className="justify-center flex flex-row items-center
-        gap-2">
+        <div
+          className="justify-center flex flex-row items-center
+        gap-2"
+        >
           <div>Already have an account?</div>
-          <div className="text-neutral-800
+          <div
+            className="text-neutral-800
           cursor-pointer hover:underline"
-          onClick={registerModal.onClose}
-          >Log in</div>
+            onClick={toggle}
+          >
+            Log in
+          </div>
         </div>
       </div>
     </div>

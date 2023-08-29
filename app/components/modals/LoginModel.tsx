@@ -13,7 +13,7 @@ import Input from "../Inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
 import useLoginModal from "@/app/hooks/useLoginModel";
-import {signIn} from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
@@ -35,23 +35,25 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', {...data, redirect: false}).then((callback) => {
-setIsLoading(false);
+    signIn("credentials", { ...data, redirect: false }).then((callback) => {
+      setIsLoading(false);
 
-if(callback?.ok)
-{
-    toast.success("Logged in");
-    router.refresh();
-    LoginModal.onClose();
-}
+      if (callback?.ok) {
+        toast.success("Logged in");
+        router.refresh();
+        LoginModal.onClose();
+      }
 
-if(callback?.error)
-{
-    toast.error(callback.error);
-}
-
+      if (callback?.error) {
+        toast.error(callback.error);
+      }
     });
   };
+
+  const toggle = useCallback(() => {
+    LoginModal.onClose();
+    registerModal.onOpen();
+  }, [LoginModal, registerModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -65,7 +67,7 @@ if(callback?.error)
         required
       />
 
-        <Input
+      <Input
         id="password"
         label="Password"
         type="password"
@@ -84,14 +86,16 @@ if(callback?.error)
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => signIn('google')}
+        onClick={() => signIn("google")}
       />
 
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {signIn('github')}}
+        onClick={() => {
+          signIn("github");
+        }}
       />
       <div
         className="text-neutral-500
@@ -105,13 +109,13 @@ if(callback?.error)
           className="justify-center flex flex-row items-center
         gap-2"
         >
-          <div>Already have an account?</div>
+          <div>First time using Airbnb?</div>
           <div
             className="text-neutral-800
           cursor-pointer hover:underline"
-            onClick={registerModal.onClose}
+            onClick={toggle}
           >
-            Login
+            Create an account
           </div>
         </div>
       </div>
