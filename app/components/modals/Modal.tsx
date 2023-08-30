@@ -112,7 +112,7 @@ w-full bg-white outline-none focus:outline-none
                 <div className="flex flex-row items-center gap-4 w-full">
                   {secondaryAction && secondaryLabel && (
                     <Button
-                      label={secondaryAction}
+                      label={secondaryLabel}
                       disabled={disabled}
                       onClick={handleSecondaryAction}
                       outline
