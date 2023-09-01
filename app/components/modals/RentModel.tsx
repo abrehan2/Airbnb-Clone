@@ -9,7 +9,8 @@ import { categories } from "../navbar/Categories";
 import CategoryInput from "../Inputs/CategoryInput";
 import { FieldValues, useForm } from "react-hook-form";
 import CountrySelect from "../Inputs/CountrySelect";
-import Map from "../Map";
+import dynamic from "next/dynamic";
+import Counter from "../Inputs/Counter";
 
 // PARTIALS -
 enum STEPS {
@@ -47,6 +48,13 @@ const RentModel = () => {
 
   const category = watch("category");
   const location = watch("location");
+  const Map = useMemo(
+    () =>
+      dynamic(() => import("../Map"), {
+        ssr: false,
+      }),
+    [location]
+  );
 
   const setCustomValue = (id: string, value: any) => {
     setValue(id, value, {
@@ -64,22 +72,18 @@ const RentModel = () => {
   };
 
   const actionLabel = useMemo(() => {
-    if (step === STEPS.PRICE) 
-    {
+    if (step === STEPS.PRICE) {
       return "Create";
     }
     return "Next";
-
   }, [step]);
 
   const secondaryLabel = useMemo(() => {
-    if (step === STEPS.CATEGORY) 
-    {
+    if (step === STEPS.CATEGORY) {
       return undefined;
     }
 
-     return "Back";
-
+    return "Back";
   }, [step]);
 
   let bodyContent = (
@@ -110,21 +114,32 @@ const RentModel = () => {
     </div>
   );
 
-  if(step === STEPS.LOCATION)
-  {
+  if (step === STEPS.LOCATION) {
     bodyContent = (
-<div className="flex flex-col gap-8">
-  <Heading 
-  title="Where is your place located?"
-  subtitle="Help guests find you!"
-  />
-  <CountrySelect 
-  onChange={(value) => setCustomValue('location', value)}
-  value={location}
-  />
-  <Map />
-</div>
-    )
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        <CountrySelect
+          onChange={(value) => setCustomValue("location", value)}
+          value={location}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
+  if (step === STEPS.INFO) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Share some basics about your place"
+          subtitle="What amenitites do you have?"
+        />
+        <Counter title="Number of guests" subtitle="How many guests"/>
+      </div>
+    );
   }
 
   return (
