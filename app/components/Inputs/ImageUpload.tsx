@@ -52,8 +52,7 @@ const ImageUpload: React.FC<ImageUploadProps> = ({ onChange, value }) => {
                 jsutify-center
                 items-center
                 gap-4
-                text-neutral-600
-                
+                text-neutral-600                
                 "
           >
             <TbPhotoPlus size={50} />
