@@ -7,6 +7,7 @@ import UserMenu from "./UserMenu";
 import { safeUser } from "@/app/types";
 import Categories from "./Categories";
 
+// PARTIALS -
 interface NavbarProps {
   currentUser?: safeUser | null;
 }

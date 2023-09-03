@@ -7,6 +7,7 @@
 // npm i bcrypt
 // npm i -D @types/bcrypt
 
+// PARTIALS -
 generator client {
   provider = "prisma-client-js"
 }

@@ -7,7 +7,6 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModel";
-import { User } from "@prisma/client";
 import { signOut } from "next-auth/react";
 import { safeUser } from "@/app/types";
 import useRentModal from "@/app/hooks/useRentModel";
@@ -64,7 +63,10 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                   <MenuItem onClick={() => {}} label="My favorites" />
                   <MenuItem onClick={() => {}} label="My reservations" />
                   <MenuItem onClick={() => {}} label="My properties" />
-                  <MenuItem onClick={() => rentModel.onOpen()} label="Airbnb my home" />
+                  <MenuItem
+                    onClick={() => rentModel.onOpen()}
+                    label="Airbnb my home"
+                  />
                   <hr />
                   <MenuItem onClick={() => signOut()} label="Logout" />
                 </>

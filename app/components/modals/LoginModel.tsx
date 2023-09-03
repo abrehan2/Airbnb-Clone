@@ -1,7 +1,6 @@
 "use client";
 
 // IMPORTS -
-import axios from "axios";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
 import { useCallback, useState } from "react";
@@ -101,9 +100,7 @@ const LoginModal = () => {
         className="text-neutral-500
       text-center
       mt-4
-      font-light
-      
-      "
+      font-light"
       >
         <div
           className="justify-center flex flex-row items-center

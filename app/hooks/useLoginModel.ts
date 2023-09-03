@@ -1,6 +1,7 @@
 // IMPORTS -
 import { create } from "zustand";
 
+// PARTIALS -
 interface LoginModalStore {
   isOpen: boolean;
   onOpen: () => void;

@@ -3,6 +3,7 @@
 // IMPORTS -
 import Image from "next/image";
 
+// PARTIALS -
 interface AvatarProps {
   src: string | null | undefined;
 }

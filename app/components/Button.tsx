@@ -3,6 +3,7 @@
 // IMPORTS -
 import { IconType } from "react-icons";
 
+// IMPORTS -
 interface ButtonProps {
   label: string;
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
@@ -38,11 +39,7 @@ ${outline ? `text-black` : `text-white`}
 ${small ? `py-1` : `py-3`}
 ${small ? `text-sm` : `text-md`}
 ${small ? `font-light` : `font-semibold`}
-${small ? `border-[1px]` : `border-2`}
-}    
-
-      
-      `}
+${small ? `border-[1px]` : `border-2`}}`}
       >
         {Icon && (
           <Icon

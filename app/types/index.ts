@@ -1,3 +1,4 @@
+// IMPORTS -
 import { User } from "@prisma/client";
 
 export type safeUser = Omit<
