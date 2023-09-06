@@ -3,8 +3,8 @@
 // npm i date-fns
 
 // IMPORTS -
-import { Listing, Reservation } from "@prisma/client";
-import { safeUser } from "@/app/types";
+import { Reservation } from "@prisma/client";
+import { safeListings, safeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
 import useCountries from "@/app/hooks/useCountries";
 import { useCallback, useMemo } from "react";
@@ -15,7 +15,7 @@ import Button from "../Button";
 
 // PARTIALS -
 interface ListingCardProps {
-  data: Listing;
+  data: safeListings;
   reservation?: Reservation;
   onAction?: (id: string) => void;
   disabled?: boolean;
