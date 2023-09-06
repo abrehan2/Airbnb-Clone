@@ -2,7 +2,7 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { safeUser } from "../types";
 import useLoginModal from "./useLoginModel";
 
@@ -14,11 +14,11 @@ interface IUseFavorite {
 
 const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
   const router = useRouter();
-  const loginModel = useLoginModal();
-
+  const loginModal = useLoginModal();
+  
   const hasFavorited = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
-
+   
     return list.includes(listingId);
   }, [currentUser, listingId]);
 
@@ -26,7 +26,8 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
     async (e: React.MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       if (!currentUser) {
-        return loginModel.onOpen();
+        toast.error("Login to add to favorites!");
+        return loginModal.onOpen();
       }
 
       try {
@@ -39,11 +40,24 @@ const useFavorite = ({ listingId, currentUser }: IUseFavorite) => {
 
         await request();
         router.refresh();
-        toast.success("Success");
-      } catch (err: any) {
-        toast.error("Something went wrong");
+        toast.success(
+          hasFavorited ? "Removed from favorites!" : "Added to favorites!"
+        );
+      } catch (error: any) {
+        toast.error(error?.response?.data?.error || "Something went wrong");
       }
     },
-    []
+    [currentUser,
+    hasFavorited,
+    listingId,
+    loginModal,
+    router]
   );
+
+  return {
+    hasFavorited,
+    toggleFavorite
+  }
 };
+
+export default useFavorite;
