@@ -1,37 +1,50 @@
 // IMPORTS -
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import getListingById from "@/app/actions/getListingById";
-import ClientOnly from "@/app/components/ClientOnly";
-import EmptyState from "@/app/components/EmptyState";
+import { Metadata } from "next";
+import getCurrentUser from "../../actions/getCurrentUser";
+import getListingById from "../../actions/getListingById";
+import EmptyState from "../../components/EmptyState";
 import ListingClient from "./ListingClient";
 
-// IMPORTS -
+// PARTIAL -
 interface IParams {
-    listingId?: string;
+  listingId?: string;
 }
 
-const ListingPage = async ({params} : {params: IParams}) => {
-    const listing = await getListingById(params);
-    const currentUser = await getCurrentUser();
+export async function generateMetadata({
+  params,
+}: {
+  params: IParams;
+}): Promise<Metadata> {
+  const listing = await getListingById(params);
+  if (!listing) {
+    return {
+      title: "Listing not found",
+      description:
+        "The listing you are looking for does not exist or has been removed.",
+    };
+  }
 
-    if (!listing)
-    {
-        return (
-            <ClientOnly>
-              <EmptyState />
-            </ClientOnly>
-        )
-    }
-
-    <div>
-       <ClientOnly>
-        <ListingClient 
-        listing={listing}
-        currentUser={currentUser}
-        />
-       </ClientOnly>
-    </div>
-
+  return {
+    title: `${listing.title}`,
+    description: listing.description,
+  };
 }
+
+const ListingPage = async ({ params }: { params: IParams }) => {
+  const listing = await getListingById(params);
+  const currentUser = await getCurrentUser();
+
+  if (!listing) {
+    return (
+      <EmptyState
+        title="Listing not found"
+        subtitle="The listing you are looking for does not exist or has been removed."
+        showReset
+      />
+    );
+  }
+
+  return <ListingClient listing={listing} currentUser={currentUser} />;
+};
 
 export default ListingPage;
