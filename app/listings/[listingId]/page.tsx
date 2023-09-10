@@ -4,6 +4,7 @@ import getCurrentUser from "../../actions/getCurrentUser";
 import getListingById from "../../actions/getListingById";
 import EmptyState from "../../components/EmptyState";
 import ListingClient from "./ListingClient";
+import getReservations from "@/app/actions/getReservations";
 
 // PARTIAL -
 interface IParams {
@@ -33,6 +34,7 @@ export async function generateMetadata({
 const ListingPage = async ({ params }: { params: IParams }) => {
   const listing = await getListingById(params);
   const currentUser = await getCurrentUser();
+  const reservations = await getReservations(params);
 
   if (!listing) {
     return (
@@ -44,7 +46,7 @@ const ListingPage = async ({ params }: { params: IParams }) => {
     );
   }
 
-  return <ListingClient listing={listing} currentUser={currentUser} />;
+  return <ListingClient listing={listing} currentUser={currentUser} reservations={reservations}/>;
 };
 
 export default ListingPage;
