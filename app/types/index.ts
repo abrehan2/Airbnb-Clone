@@ -14,10 +14,12 @@ export type safeUser = Omit<
   emailVerified: string | null;
 };
 
-export type SafeReservations = Omit<Reservation,
-"createdAt" | "startDate" | "endDate" | "listing"> & {
+export type SafeReservations = Omit<
+  Reservation,
+  "createdAt" | "startDate" | "endDate" | "listing"
+> & {
   createdAt: string;
   startDate: string;
   endDate: string;
   listing: safeListings;
-}
+};
