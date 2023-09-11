@@ -35,7 +35,7 @@ export async function DELETE(
           listing: { userId: currentUser.id },
         },
       ],
-    },
+    }
   });
 
   return NextResponse.json(reservation);
