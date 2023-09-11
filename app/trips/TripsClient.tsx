@@ -11,33 +11,36 @@ import toast from "react-hot-toast";
 import ListingCard from "../components/listings/ListingCard";
 
 // PARTIALS -
-interface TripsClientProps{
+interface TripsClientProps {
   reservations: SafeReservations[];
   currentUser?: safeUser | null;
 }
 
-
-
-
 const TripsClient: React.FC<TripsClientProps> = ({
   reservations,
-  currentUser
+  currentUser,
 }) => {
+  const router = useRouter();
 
-const router = useRouter();
-const [deleteId, setDeletingId] = useState(``);
-const onCancel = useCallback((id: string) => {
-  setDeletingId(id);
-  axios.delete(`/api/reservations/${id}`).then(() => {
-    toast.success('Reservation cancelled');
-    router.refresh();
-  }).catch((error: any) => {
-    toast.error(error?.response?.data?.error);
-  }).finally(() => {
-    setDeletingId(``)
-  })
-
-}, [router])
+  const [deleteId, setDeletingId] = useState(``);
+  const onCancel = useCallback(
+    (id: string) => {
+      setDeletingId(id);
+      axios
+        .delete(`/api/reservations/${id}`)
+        .then(() => {
+          toast.success("Reservation cancelled");
+          router.refresh();
+        })
+        .catch((error: any) => {
+          toast.error(error?.response?.data?.error);
+        })
+        .finally(() => {
+          setDeletingId(``);
+        });
+    },
+    [router]
+  );
 
   return (
     <Container>
@@ -55,26 +58,25 @@ const onCancel = useCallback((id: string) => {
     lg:grid-cols-4
     xl:grid-cols-5
     2xl:grid-cols-6
-    gap-8">
-
-{
-  reservations.map((reservation) => {
-  return  (<ListingCard
-    key={reservation.id}
-    data={reservation.listing}
-    actionId={reservation.id}
-    onAction={onCancel}
-    disabled={deleteId === reservation.id}
-    actionLabel="Cancel reservation"
-    currentUser={currentUser}
-    />)
-  })
-}
-
-
-    </div>
+    gap-8"
+      >
+        {reservations.map((reservation) => {
+          console.log(reservation);
+          return (
+            <ListingCard
+              key={reservation.id}
+              data={reservation.listing}
+              actionId={reservation.id}
+              onAction={onCancel}
+              disabled={deleteId === reservation.id}
+              actionLabel="Cancel reservation"
+              currentUser={currentUser}
+            />
+          );
+        })}
+      </div>
     </Container>
   );
-}
+};
 
-export default TripsClient
+export default TripsClient;
