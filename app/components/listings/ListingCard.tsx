@@ -4,7 +4,7 @@
 
 // IMPORTS -
 import { Reservation } from "@prisma/client";
-import { safeListings, safeUser } from "@/app/types";
+import { SafeReservations, safeListings, safeUser } from "@/app/types";
 import { useRouter } from "next/navigation";
 import useCountries from "@/app/hooks/useCountries";
 import { useCallback, useMemo } from "react";
@@ -16,7 +16,7 @@ import Button from "../Button";
 // PARTIALS -
 interface ListingCardProps {
   data: safeListings;
-  reservation?: Reservation;
+  reservation?: SafeReservations;
   onAction?: (id: string) => void;
   disabled?: boolean;
   actionLabel?: string;
@@ -87,7 +87,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
         </div>
 
         <div className="font-semibold text-lg">
-          {location?.label}, {location?.region}
+          {location?.region}, {location?.label}
         </div>
 
         <div className="font-light text-neutral-500">
