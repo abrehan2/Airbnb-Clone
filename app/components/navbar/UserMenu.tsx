@@ -21,7 +21,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
   const rentModel = useRentModal();
-  const router = useRouter()
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -61,9 +61,24 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
             <div className="flex flex-col cursor-pointer">
               {currentUser ? (
                 <>
-                  <MenuItem onClick={() => {router.push("/trips")}} label="My trips" />
-                  <MenuItem onClick={() => {}} label="My favorites" />
-                  <MenuItem onClick={() => {router.push("/reservations");}} label="My reservations" />
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/trips");
+                    }}
+                    label="My trips"
+                  />
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/favorites");
+                    }}
+                    label="My favorites"
+                  />
+                  <MenuItem
+                    onClick={() => {
+                      router.push("/reservations");
+                    }}
+                    label="My reservations"
+                  />
                   <MenuItem onClick={() => {}} label="My properties" />
                   <MenuItem
                     onClick={() => rentModel.onOpen()}
