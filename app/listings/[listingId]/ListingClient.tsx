@@ -10,7 +10,7 @@ import { SafeReservations, safeListings, safeUser } from "../../types";
 import { categories } from "@/app/components/navbar/Categories";
 import ListingHead from "@/app/components/listings/ListingHead";
 import ListingInfo from "@/app/components/listings/ListingInfo";
-import useLoginModal from "@/app/hooks/useLoginModel";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns";
 import ListingReservation from "@/app/components/listings/ListingReservation";
 import { Range } from "react-date-range";
@@ -71,7 +71,7 @@ const ListingClient: FC<ListingClientProps> = ({
       .then(() => {
         toast.success("Listing reserved!");
         setDateRange(initialDateRange);
-        router.push('/trips');
+        router.push("/trips");
       })
       .catch(() => {
         toast.error("Something went wrong");

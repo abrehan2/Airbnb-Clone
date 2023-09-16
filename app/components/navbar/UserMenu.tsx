@@ -6,10 +6,10 @@ import Avatar from "../Avatar";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import useRegisterModal from "../../hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModel";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { signOut } from "next-auth/react";
 import { safeUser } from "@/app/types";
-import useRentModal from "@/app/hooks/useRentModel";
+import useRentModal from "@/app/hooks/useRentModal";
 import { useRouter } from "next/navigation";
 
 interface UserMenuProps {

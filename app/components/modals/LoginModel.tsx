@@ -11,7 +11,7 @@ import Heading from "../Heading";
 import Input from "../Inputs/Input";
 import { toast } from "react-hot-toast";
 import Button from "../Button";
-import useLoginModal from "@/app/hooks/useLoginModel";
+import useLoginModal from "@/app/hooks/useLoginModal";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -100,10 +100,9 @@ const LoginModal = () => {
         className="text-neutral-500
       text-center
       mt-4
-      font-light">
-        <div
-          className="justify-center flex flex-row items-center gap-2"
-        >
+      font-light"
+      >
+        <div className="justify-center flex flex-row items-center gap-2">
           <div>First time using Airbnb?</div>
           <div
             className="text-neutral-800
