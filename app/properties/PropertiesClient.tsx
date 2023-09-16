@@ -20,23 +20,28 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   listings,
   currentUser,
 }) => {
+  const [deletingId, setDeletingId] = useState<string>("");
+
   const router = useRouter();
 
-  const [deleteId, setDeletingId] = useState(``);
   const onCancel = useCallback(
     (id: string) => {
       setDeletingId(id);
+
       axios
         .delete(`/api/listings/${id}`)
-        .then(() => {
-          toast.success("Listing deleted");
+        .then((res) => {
+          toast.success(res.data?.message || "Listing deleted successfully");
           router.refresh();
         })
-        .catch((error: any) => {
-          toast.error(error?.response?.data?.error);
+        .catch((error) => {
+          toast.error(
+            error?.response?.data?.error ||
+              "Something went wrong. Please try again."
+          );
         })
         .finally(() => {
-          setDeletingId(``);
+          setDeletingId("");
         });
     },
     [router]
@@ -45,34 +50,22 @@ const PropertiesClient: React.FC<PropertiesClientProps> = ({
   return (
     <Container>
       <Heading
-        title="Properties"
-        subtitle="List of your properties"
+        title="Your Properties"
+        subtitle="Here are the properties you have listed."
       />
-      <div
-        className="
-    mt-10
-    grid
-    grid-cols-1
-    sm:grid-cols-2
-    md:grid-cols-3
-    lg:grid-cols-4
-    xl:grid-cols-5
-    2xl:grid-cols-6
-    gap-8"
-      >
-        {listings.map((listing) => {
-         return (
-           <ListingCard
-             key={listing.id}
-             data={listing}
-             actionId={listing.id}
-             onAction={onCancel}
-             disabled={deleteId === listing.id}
-             actionLabel="Deleted property"
-             currentUser={currentUser}
-           />
-         );
-        })}
+
+      <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
+        {listings.map((listing) => (
+          <ListingCard
+            key={listing.id}
+            data={listing}
+            actionId={listing.id}
+            onAction={onCancel}
+            disabled={deletingId === listing.id}
+            actionLabel="Delete Property"
+            currentUser={currentUser}
+          />
+        ))}
       </div>
     </Container>
   );

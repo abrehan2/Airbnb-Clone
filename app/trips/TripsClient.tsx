@@ -61,7 +61,7 @@ const TripsClient: React.FC<TripsClientProps> = ({
     gap-8"
       >
         {reservations.map((reservation) => {
-          console.log(reservation);
+          
           return (
             <ListingCard
               key={reservation.id}
