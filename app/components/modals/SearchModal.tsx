@@ -36,6 +36,8 @@ const SearchModal = () => {
     key: "selection",
   });
 
+  console.log(params);
+
   const Map = useMemo(
     () =>
       dynamic(() => import("../Map"), {
@@ -158,6 +160,18 @@ const SearchModal = () => {
           subtitle="How many guests are coming?"
           value={guestCount}
           onChange={(value) => setGuestCount(value)}
+        />
+        <Counter
+          title="Rooms"
+          subtitle="How many rooms do you need?"
+          value={roomCount}
+          onChange={(value) => setroomCount(value)}
+        />
+        <Counter
+          title="Bathrooms"
+          subtitle="How many bathrooms do you need?"
+          value={bathroomCount}
+          onChange={(value) => setbathroomCount(value)}
         />
       </div>
     );
